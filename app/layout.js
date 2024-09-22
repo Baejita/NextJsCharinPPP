@@ -13,7 +13,7 @@ const myFont = localfont({
 import "./globals.css";
 import { Suspense } from "react";
 import Spinner from "@/components/Spinner";
-import NavbarComponent from "./testUi/page";
+import NavbarComponent from "../components/Navbar";
 import Footer from "@/components/Footer";
 
 // const kanit = Kanit({
@@ -32,7 +32,6 @@ export default function RootLayout({ children }) {
       <body className={`${myFont.className} bg-slate-50`}>
         <Suspense fallback={<Spinner />}>
           <div className="flex flex-col justify-between w-full h-screen">
-            {" "}
             <NavbarComponent />
             <main className="max-w-7xl  mx-auto w-full">{children}</main>
             <Footer />
