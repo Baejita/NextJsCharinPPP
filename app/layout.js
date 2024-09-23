@@ -15,6 +15,7 @@ import { Suspense } from "react";
 import Spinner from "@/components/Spinner";
 import NavbarComponent from "../components/Navbar";
 import Footer from "@/components/Footer";
+import Container from "@/components/Container";
 
 // const kanit = Kanit({
 //   subsets: ["thai"],
@@ -33,7 +34,9 @@ export default function RootLayout({ children }) {
         <Suspense fallback={<Spinner />}>
           <div className="flex flex-col justify-between w-full h-screen">
             <NavbarComponent />
-            <main className="max-w-7xl  mx-auto w-full">{children}</main>
+            <Container>
+              <main className="max-w-7xl  mx-auto w-full">{children}</main>
+            </Container>
             <Footer />
           </div>
         </Suspense>
