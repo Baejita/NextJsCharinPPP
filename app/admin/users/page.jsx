@@ -53,34 +53,6 @@ function page() {
                         </Link>
                       </TableCell>
                     </TableRow>
-                    <TableRow key="2">
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>Zoey Lang</TableCell>
-                      <TableCell>Technical Lead</TableCell>
-                      <TableCell>Paused</TableCell>
-                    </TableRow>
-                    <TableRow key="3">
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>Jane Fisher</TableCell>
-                      <TableCell>Senior Developer</TableCell>
-                      <TableCell>Active</TableCell>
-                    </TableRow>
-                    <TableRow key="4">
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>William Howard</TableCell>
-                      <TableCell>Community Manager</TableCell>
-                      <TableCell>Vacation</TableCell>
-                    </TableRow>
-                    <TableRow key="5">
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>Tony Reichert</TableCell>
-                      <TableCell>CEO</TableCell>
-                      <TableCell>Active</TableCell>
-                    </TableRow>
                   </TableBody>
                 </Table>
               </div>
