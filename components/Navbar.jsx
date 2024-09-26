@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
-
+import { signOut } from "next-auth/react";
 export default function NavbarComponent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -65,6 +65,15 @@ export default function NavbarComponent() {
           <Button as={Link} color="primary" href="/register" variant="flat">
             ลงทะเบียน
           </Button>
+        </NavbarItem>
+
+        <NavbarItem>
+          <Link
+            className="bg-red-500 text-white border py-2 px-3 rounded-md text-lg my-2"
+            onClick={() => signOut()}
+          >
+            ลงชื่อออก
+          </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>

@@ -16,6 +16,7 @@ import Spinner from "@/components/Spinner";
 import NavbarComponent from "../components/Navbar";
 import Footer from "@/components/Footer";
 import Container from "@/components/Container";
+import { AuthProvider } from "./provider";
 
 // const kanit = Kanit({
 //   subsets: ["thai"],
@@ -35,7 +36,9 @@ export default function RootLayout({ children }) {
           <div className="flex flex-col justify-between w-full h-screen">
             <NavbarComponent />
             <Container>
-              <main className="max-w-7xl  mx-auto w-full">{children}</main>
+              <main className="max-w-7xl  mx-auto w-full">
+                <AuthProvider>{children}</AuthProvider>
+              </main>
             </Container>
             <Footer />
           </div>

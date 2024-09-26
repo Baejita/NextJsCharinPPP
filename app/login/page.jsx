@@ -1,22 +1,54 @@
+"use client";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (res.error) {
+        setError("Invalid Credentials", res.error);
+        return;
+      }
+
+      router.replace("Welcome");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex-grow">
       <div className="flex flex-col justify-center items-center">
         <div className="w-[400px] shadow-xl p-10 mt-5 rounded-xl">
           <h3 className="text-3xl">Login</h3>
           <hr className="my-3" />
-          <form action="">
+          <form onSubmit={handleSubmit}>
+            {error && <div className="text-red-500">{error}</div>}
+
             <Input
               isRequired
-              type="username"
+              type="text"
               label="Username"
               placeholder="ประชาชน"
               className="max-w-xs py-3"
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <Input
@@ -25,9 +57,10 @@ function LoginPage() {
               label="Password"
               placeholder="คนเท่ากัน"
               className="max-w-xs py-3"
+              onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Button color="primary" className=" text-white">
+            <Button color="primary" className=" text-white" type="submit">
               Sign In
             </Button>
             <hr className="my-3" />
