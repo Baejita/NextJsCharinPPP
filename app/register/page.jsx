@@ -39,7 +39,9 @@ function RegisterPage() {
       const { user } = await resUserExists.json();
 
       if (user) {
-        setError("User already exists.");
+        setError(
+          "ขออภัย!!! คุณกรอกอีเมลซ้ำ 😅 หรือคุณได้ลงทะเบียนเรียบร้อยแล้ว"
+        );
         return;
       }
 
