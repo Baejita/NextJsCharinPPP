@@ -11,7 +11,7 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [success, setSuccess] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,6 +26,24 @@ function RegisterPage() {
     }
 
     try {
+      const resUserExists = await fetch(
+        "http://localhost:3000/api/userExists",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      const { user } = await resUserExists.json();
+
+      if (user) {
+        setError("มีผู้ใช้ email นี้แล้ว");
+        return;
+      }
+
       const res = await fetch("http://localhost:3000/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,6 +53,7 @@ function RegisterPage() {
       if (res.ok) {
         const form = e.target;
         setError("");
+        setSuccess("ลงทะเบียนสำเร็จ 😊.");
         form.reset();
       } else {
         console.log("User registration failed.");
@@ -52,6 +71,8 @@ function RegisterPage() {
           <hr className="my-3" />
           <form onSubmit={handleSubmit}>
             {error && <div className="text-red-500">{error}</div>}
+
+            {success && <div className="text-green-500">{success}</div>}
 
             <Input
               isRequired
