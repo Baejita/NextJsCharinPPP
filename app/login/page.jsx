@@ -4,7 +4,7 @@ import { Input } from "@nextui-org/input";
 import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -15,6 +15,7 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await signIn("credentials", {
         email,
@@ -23,11 +24,11 @@ function LoginPage() {
       });
 
       if (res.error) {
-        setError("Invalid Credentials", res.error);
+        setError("Invalid Credentials");
         return;
       }
 
-      router.replace("Welcome");
+      router.replace("welcome");
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +47,7 @@ function LoginPage() {
               isRequired
               type="text"
               label="Username"
-              placeholder="ประชาชน"
+              placeholder="Enter your email"
               className="max-w-xs py-3"
               onChange={(e) => setEmail(e.target.value)}
             />
