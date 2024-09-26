@@ -12,6 +12,7 @@ function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,9 +31,7 @@ function RegisterPage() {
         "http://localhost:3000/api/userExists",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
         }
       );
@@ -40,7 +39,7 @@ function RegisterPage() {
       const { user } = await resUserExists.json();
 
       if (user) {
-        setError("มีผู้ใช้ email นี้แล้ว");
+        setError("User already exists.");
         return;
       }
 
@@ -85,7 +84,7 @@ function RegisterPage() {
 
             <Input
               isRequired
-              type="text"
+              type="email"
               label="Email"
               placeholder="example@example.com"
               className="max-w-xs py-3"
