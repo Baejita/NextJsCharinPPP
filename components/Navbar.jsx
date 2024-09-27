@@ -76,9 +76,9 @@ export default function NavbarComponent() {
           </>
         ) : (
           <>
-            <p className="text-orange-500">
-              ยินดีต้อนรับคุณ {session.user.name}
-            </p>
+            <NavbarItem className="hidden lg:flex">
+              <Link href="/welcome"> ยินดีต้อนรับคุณ {session.user.name}</Link>
+            </NavbarItem>
             <NavbarItem>
               <Button
                 variant="ghost"
