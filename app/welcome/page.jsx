@@ -1,15 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+import { useSession } from "next-auth/react";
 function WelcomePage() {
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <>
       <div className="flex-grow">
         <div className="container mx-auto shadow-xl my-10 p-10">
           <div className="flex justify-between">
             <div>
-              <h3 className=" text-3xl">Welcome, ประชาชน</h3>
+              <h3 className=" text-3xl">Welcome, {session?.user.name}</h3>
+              <h4 className=" text-1xl">Email: {session?.user.email}</h4>
             </div>
             <div>
               <Link
