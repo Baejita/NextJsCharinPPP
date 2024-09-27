@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 function WelcomePage() {
   const { data: session } = useSession();
+  if (!session) redirect("/login");
   console.log(session);
   return (
     <>

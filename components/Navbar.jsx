@@ -12,8 +12,12 @@ import {
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { signOut } from "next-auth/react";
+
+import { useSession } from "next-auth/react";
+
 export default function NavbarComponent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   const menuItems = [
     "Profile",
@@ -57,24 +61,37 @@ export default function NavbarComponent() {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="/login">ลงชื่อเข้าใช้</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="/register" variant="flat">
-            ลงทะเบียน
-          </Button>
-        </NavbarItem>
 
-        <NavbarItem>
-          <Link
-            className="bg-red-500 text-white border py-2 px-3 rounded-md text-lg my-2"
-            onClick={() => signOut()}
-          >
-            ลงชื่อออก
-          </Link>
-        </NavbarItem>
+      <NavbarContent justify="end">
+        {!session ? (
+          <>
+            <NavbarItem className="hidden lg:flex">
+              <Link href="/login">ลงชื่อเข้าใช้</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Button as={Link} color="primary" href="/register" variant="flat">
+                ลงทะเบียน
+              </Button>
+            </NavbarItem>
+          </>
+        ) : (
+          <>
+            <p className="text-orange-500">
+              ยินดีต้อนรับคุณ {session.user.name}
+            </p>
+            <NavbarItem>
+              <Button
+                variant="ghost"
+                color="primary"
+                // className="bg-red-500 text-white border rounded-md text-sm my-2"
+                className=""
+                onClick={() => signOut()}
+              >
+                ลงชื่อออก
+              </Button>
+            </NavbarItem>
+          </>
+        )}
       </NavbarContent>
       <NavbarMenu>
         {menuItems.map((item, index) => (

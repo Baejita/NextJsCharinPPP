@@ -16,7 +16,7 @@ import Spinner from "@/components/Spinner";
 import NavbarComponent from "../components/Navbar";
 import Footer from "@/components/Footer";
 import Container from "@/components/Container";
-import { AuthProvider } from "./provider";
+import { AuthProvider } from "./Provider";
 
 // const kanit = Kanit({
 //   subsets: ["thai"],
@@ -34,13 +34,13 @@ export default function RootLayout({ children }) {
       <body className={`${myFont.className} bg-slate-50`}>
         <Suspense fallback={<Spinner />}>
           <div className="flex flex-col justify-between w-full h-screen">
-            <NavbarComponent />
-            <Container>
-              <main className="max-w-7xl  mx-auto w-full">
-                <AuthProvider>{children}</AuthProvider>
-              </main>
-            </Container>
-            <Footer />
+            <AuthProvider>
+              <NavbarComponent />
+              <Container>
+                <main className="max-w-7xl  mx-auto w-full">{children}</main>
+              </Container>
+              <Footer />
+            </AuthProvider>
           </div>
         </Suspense>
       </body>
