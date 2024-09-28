@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 function WelcomePage() {
   const { data: session } = useSession();
   if (!session) redirect("/login");
-  console.log(session);
+
   return (
     <>
       <div className="flex-grow">
