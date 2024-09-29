@@ -12,10 +12,10 @@ const myFont = localfont({
 
 import "./globals.css";
 import { Suspense } from "react";
-import Spinner from "@/components/Spinner";
+import Spinner from "../components/Spinner";
 import NavbarComponent from "../components/Navbar";
-import Footer from "@/components/Footer";
-import Container from "@/components/Container";
+import Footer from "../components/Footer";
+import Container from "../components/Container";
 import { AuthProvider } from "./Provider";
 
 // const kanit = Kanit({
