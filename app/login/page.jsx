@@ -4,16 +4,16 @@ import { Input } from "@nextui-org/input";
 import Link from "next/link";
 import React, { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function LoginPage() {
+  const { data: session } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const router = useRouter();
 
-  const { data: session } = useSession();
   if (session) router.replace("/welcome");
 
   const handleSubmit = async (e) => {
