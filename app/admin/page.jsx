@@ -11,6 +11,8 @@ function AdminPage() {
 
   const [totalUserData, setTotalUserData] = useState([]);
 
+  const [totalPostData, setTotalPostData] = useState([]);
+  console.log(totalPostData);
   const getTotalUsers = async () => {
     try {
       const res = await fetch("http://localhost:3000/api/totalusers", {
@@ -31,11 +33,9 @@ function AdminPage() {
     getTotalUsers();
   }, []);
 
-  const [totalPostData, setTotalPostData] = useState([]);
-
   const getTotalPosts = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/totalusers", {
+      const res = await fetch("http://localhost:3000/api/totalPosts", {
         cache: "no-store",
       });
 
