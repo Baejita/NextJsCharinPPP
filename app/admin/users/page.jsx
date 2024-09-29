@@ -11,7 +11,7 @@ import {
   TableCell,
 } from "@nextui-org/table";
 import { Link } from "@nextui-org/link";
-import DeleteBtn from "./deleteBtn";
+import DeleteBtn from "./DeleteBtn";
 
 function AdminPageEditUser() {
   const [allUsersData, setAllUsersData] = useState([]);
