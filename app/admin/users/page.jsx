@@ -18,7 +18,7 @@ function AdminPageEditUser() {
 
   const getAllUsersData = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/totalusers");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URI}/api/totalusers`);
 
       if (!res.ok) {
         throw new Error("Failed to fetch user data");

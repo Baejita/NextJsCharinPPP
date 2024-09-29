@@ -32,7 +32,7 @@ function RegisterPage() {
 
     try {
       const resUserExists = await fetch(
-        "http://localhost:3000/api/userExists",
+        `${process.env.NEXT_PUBLIC_URL}/api/userExists`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -49,7 +49,7 @@ function RegisterPage() {
         return;
       }
 
-      const res = await fetch("http://localhost:3000/api/register", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URI}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),

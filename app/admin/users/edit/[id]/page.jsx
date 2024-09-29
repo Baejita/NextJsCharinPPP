@@ -16,10 +16,13 @@ function EditUserPage({ params }) {
 
   const getUserById = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/totalusers/${id}`, {
-        method: "GET",
-        cache: "no-store",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URI}/api/totalusers/${id}`,
+        {
+          method: "GET",
+          cache: "no-store",
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Failed to fetch user");
@@ -40,13 +43,16 @@ function EditUserPage({ params }) {
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:3000/api/totalusers/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ newName, newEmail, newPassword }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URI}/api/totalusers/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ newName, newEmail, newPassword }),
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Failed to update user");

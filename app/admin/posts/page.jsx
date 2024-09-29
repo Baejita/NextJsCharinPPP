@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SideNav from "../components/SideNav";
 
 import {
@@ -12,7 +12,31 @@ import {
 } from "@nextui-org/table";
 import { Link } from "@nextui-org/link";
 import Image from "next/image";
-function page() {
+import DeleteBtn from "./DeleteBtn";
+function AdminPost() {
+  const [allPostsData, setAllPostsData] = useState([]);
+
+  console.log(allPostsData);
+  const getAllPostsData = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URI}/api/totalPosts`, {
+        cache: "no-store",
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      setAllPostsData(data.totalPosts);
+    } catch (error) {
+      console.log("Error loading poast", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllPostsData();
+  }, []);
+
   return (
     <>
       <div className="flex-grow">
@@ -33,36 +57,33 @@ function page() {
                     <TableColumn>Actions</TableColumn>
                   </TableHeader>
                   <TableBody>
-                    <TableRow key="1">
-                      <TableCell>1</TableCell>
-                      <TableCell>This is post title</TableCell>
-                      <TableCell>
-                        <Image
-                          className="my-3 rounded-md"
-                          src="https://images.pexels.com/photos/28578425/pexels-photo-28578425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                          width={100}
-                          height={0}
-                          alt="post image"
-                        />
-                      </TableCell>
+                    {allPostsData.map((val) => (
+                      <TableRow key={val._id}>
+                        <TableCell>{val._id}</TableCell>
+                        <TableCell>{val.title}</TableCell>
+                        <TableCell>
+                          <Image
+                            className="my-3 rounded-md"
+                            src={val.img}
+                            width={100}
+                            height={0}
+                            alt={val.title}
+                          />
+                        </TableCell>
 
-                      <TableCell>This is Post content</TableCell>
-                      <TableCell>
-                        <Link
-                          className="secondary  border py-1 px-2 rounded-lg"
-                          href="/admin/posts/edit"
-                        >
-                          Edit
-                        </Link>
+                        <TableCell>{val.content}</TableCell>
+                        <TableCell>
+                          <Link
+                            className="secondary  border py-1 px-2 rounded-lg"
+                            href={`/admin/posts/edit/${val._id}`}
+                          >
+                            Edit
+                          </Link>
 
-                        <Link
-                          className="text-white bg-red-800  border py-1 px-2 rounded-lg my-2 mx-2"
-                          href="/admin/posts/delete"
-                        >
-                          Delete
-                        </Link>
-                      </TableCell>
-                    </TableRow>
+                          <DeleteBtn id={val._id} />
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               </div>
@@ -74,4 +95,4 @@ function page() {
   );
 }
 
-export default page;
+export default AdminPost;

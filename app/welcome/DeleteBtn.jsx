@@ -8,9 +8,12 @@ function DeleteBtn({ id }) {
     const confirmed = confirm("Are you sure you want to delete");
 
     if (confirmed) {
-      const res = await fetch(`http://localhost:3000/api/posts?id=${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/posts?id=${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (res.ok) {
         window.location.reload();

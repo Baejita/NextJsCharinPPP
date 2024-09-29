@@ -8,7 +8,7 @@ function DeleteBtn({ id }) {
 
     if (confirmed) {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_URI}/api/totalusers?id=${id}`,
+        `${process.env.NEXT_PUBLIC_URI}/api/totalPosts?id=${id}`,
         {
           method: "DELETE",
         }

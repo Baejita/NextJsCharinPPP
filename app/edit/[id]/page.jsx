@@ -22,10 +22,13 @@ function EditPage({ params }) {
 
   const getPostById = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
-        method: "GET",
-        cache: "no-store",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/posts/${id}`,
+        {
+          method: "GET",
+          cache: "no-store",
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Failed to fetch post");
@@ -46,17 +49,20 @@ function EditPage({ params }) {
     e.preventDefault();
     // update post data
     try {
-      const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          newTitle,
-          newImg,
-          newContent,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/posts/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            newTitle,
+            newImg,
+            newContent,
+          }),
+        }
+      );
       if (!res.ok) {
         throw new Error("Failed to update post");
       }
