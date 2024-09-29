@@ -20,7 +20,7 @@ function AdminPost() {
   console.log(allPostsData);
   const getAllPostsData = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_URI}/api/totalPosts`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/totalPosts`, {
         cache: "no-store",
       });
 

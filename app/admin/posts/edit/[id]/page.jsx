@@ -19,7 +19,7 @@ function AdminEditPostPage({ params }) {
   const getPostById = async (id) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_URI}/api/totalPosts/${id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/totalPosts/${id}`,
         {
           method: "GET",
           cache: "no-store",
@@ -44,17 +44,20 @@ function AdminEditPostPage({ params }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:3000/api/totalPosts/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          newTitle,
-          newImg,
-          newContent,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/totalPosts/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            newTitle,
+            newImg,
+            newContent,
+          }),
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Failed to update post.");
