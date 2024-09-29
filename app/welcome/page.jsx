@@ -2,13 +2,41 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import DeleteBtn from "./DeleteBtn";
 function WelcomePage() {
   const { data: session } = useSession();
   if (!session) redirect("/login");
 
+  const [postData, setPostData] = useState([]);
+
+  const userEmail = session?.user?.email;
+
+  const getPost = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/posts?email=${userEmail}`,
+        {
+          cache: "no-store",
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch posts");
+      }
+
+      const data = await res.json();
+      setPostData(data.posts);
+    } catch (error) {
+      console.log("Error loading post", error);
+    }
+  };
+
+  useEffect(() => {
+    getPost();
+  }, []);
   return (
     <>
       <div className="flex-grow">
@@ -28,36 +56,34 @@ function WelcomePage() {
             </div>
           </div>
           {/* User Posts Data */}
-          <div className="shadow-xl my-10 p-10 rounded-xl">
-            <h4 className="text-2xl">Post Title</h4>
-            <Image
-              className="my-3 rounded-md"
-              src="https://images.pexels.com/photos/28531965/pexels-photo-28531965.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              width={300}
-              height={0}
-              alt="post image"
-            />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatem tenetur ipsam dignissimos odio ratione vel molestiae.
-              Qui commodi assumenda nam, accusamus eligendi iure.
+          {postData && postData.length > 0 ? (
+            postData.map((val) => (
+              <div key={val._id} className="shadow-xl my-10 p-10 rounded-xl">
+                <h4 className="text-2xl">{val.title}</h4>
+                <Image
+                  className="my-3 rounded-md"
+                  src={val.img}
+                  width={300}
+                  height={0}
+                  alt={val.title}
+                />
+                <p>{val.content}</p>
+                <div className="mt-5">
+                  <Link
+                    className="bg-gray-500 text-white border py-2 px-3 rounded-md text-lg  "
+                    href={`/edit/${val._id}`}
+                  >
+                    Edit
+                  </Link>
+                  <DeleteBtn id={val._id} />
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="bg-slate-300 p-3 my-3 text-gray-500">
+              You do not have any posts yet.
             </p>
-            <div className="mt-5">
-              <Link
-                className="bg-gray-500 text-white border py-2 px-3 rounded-md text-lg  "
-                href="/edit"
-              >
-                Edit
-              </Link>
-
-              <Link
-                className="bg-red-500 text-white border py-2 px-3 rounded-md text-lg  "
-                href="/delete"
-              >
-                Delete
-              </Link>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </>

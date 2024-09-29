@@ -8,3 +8,17 @@ export async function POST(req) {
   await Post.create({ title, img, content, userEmail });
   return NextResponse.json({ message: "Post created" }, { status: 201 });
 }
+
+export async function GET(req) {
+  const userEmail = req.nextUrl.searchParams.get("email");
+  await connectMongoDB();
+  const posts = await Post.find({ userEmail });
+  return NextResponse.json({ posts });
+}
+
+export async function DELETE(req) {
+  const id = req.nextUrl.searchParams.get('id');
+  await connectMongoDB();
+  await Post.findByIdAndDelete(id);
+  return NextResponse.json({ message: "Post deleted" }, { status: 200 });
+}
