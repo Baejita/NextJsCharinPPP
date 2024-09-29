@@ -9,8 +9,9 @@ import DeleteBtn from "./DeleteBtn";
 function WelcomePage() {
   const { data: session } = useSession();
   if (!session) redirect("/login");
-
   if (session?.user.role === "admin") redirect("/admin");
+
+  
   const [postData, setPostData] = useState([]);
 
   const userEmail = session?.user?.email;

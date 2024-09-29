@@ -7,21 +7,19 @@ import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 
 function LoginPage() {
-  const { data: session } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
-  if (session) redirect("/welcome");
+  const { data: session } = useSession();
+  if (session) router.replace("/welcome");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      setLoading(true);
       const res = await signIn("credentials", {
         email,
         password,
@@ -32,7 +30,7 @@ function LoginPage() {
         setError("อีเมลล์ หรือ รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง😆");
         return;
       }
-      setLoading(false);
+
       router.replace("welcome");
     } catch (error) {
       console.log(error);
