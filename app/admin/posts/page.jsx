@@ -12,7 +12,8 @@ import {
 } from "@nextui-org/table";
 import { Link } from "@nextui-org/link";
 import Image from "next/image";
-import DeleteBtn from "./DeleteBtn";
+import DeleteBtn from "./edit/DeleteBtn";
+
 function AdminPost() {
   const [allPostsData, setAllPostsData] = useState([]);
 
