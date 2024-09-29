@@ -1,6 +1,6 @@
 import React from "react";
 import { FaRegCircleUser, FaRegNewspaper } from "react-icons/fa6";
-function Content() {
+function Content({ totalUserData }) {
   return (
     <div className="px-10 rounded-lg ">
       <div className="flex">
@@ -10,7 +10,7 @@ function Content() {
             Total Users
           </h3>
 
-          <p className="text-5xl mt-10">29</p>
+          <p className="text-5xl mt-10">{totalUserData?.length}</p>
         </div>
 
         <div className=" shadow-lg w-[300px] m-3 p-10 rounded-lg">
